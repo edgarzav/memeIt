@@ -68,8 +68,8 @@ function setImage(url) {
 
 
 function setImages() {
-    gImgs.push(setImage('./meme-imgs/003.jpg'));
-    gImgs.push(setImage('./meme-imgs/004.jpg'));
+    gImgs.push(setImage('./meme-imgs/003.JPG'));
+    gImgs.push(setImage('./meme-imgs/004.JPG'));
 
 }
 
