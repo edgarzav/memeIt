@@ -10,32 +10,38 @@
 </head>
 
 <body onload="init()">
-    <nav class="main-nav flex space-between container">
-        <img class="logo" src="/img/LOGO.png" alt="">
+    <nav class="main-nav flex space-between align-items container">
+        <img class="logo" src="./imgs/logo.png" alt="">
         <ul class="main-menu flex clean-list">
             <li class="main-menu-btn align-center">Gallery</li>
-            <li class="main-menu-btn align-center">Mems</li>
             <li class="main-menu-btn align-center">About</li>
         </ul>
     </nav>
-    <div class="gallery-container grid container"></div>
-    <div class="meme-edit" hidden>
-        <div class="canvas-container flex space-between container">
-            <canvas id="my-canvas" width="500" height="500">
-                Canvas
-            </canvas>
-            <div class="properties-container flex diraction-column">
-                <input type="text" class="txt-input" placeholder="Your text here" onkeyup="onSetTxtToMeme(event,this)">
-                <button class="txt-toggle-btn" onclick="txtLineToggle()">toggle lines</button>
-                <button class="inc-font" data-id="1" onclick="onChangeFont(this)">A+</button>
-                <button class="dec-font" data-id="-1" onclick="onChangeFont(this)">A-</button>
-                <button onclick="onLineUp()">UP</button>
-                <button onclick="onLineDown()">DOWN</button>
-            </div>
-        </div>
+    <main class="main-container flex justify-center">
+        <div class="gallery-container grid container"></div>
 
-        <script src="js/memeController.js"></script>
-        <script src="js/memeService.js"></script>
+        <div class="meme-edit" hidden>
+            <div class="canvas-container flex space-between container">
+                <canvas id="my-canvas" width="500" height="500">
+                    Canvas
+                </canvas>
+                <div class="properties-container flex diraction-column">
+                    <input type="text" class="txt-input" placeholder="Your text here"
+                        onkeyup="onSetTxtToMeme(event,this)">
+                    <button class="txt-toggle-btn" onclick="txtLineToggle()">toggle lines</button>
+                    <button class="inc-font" data-id="1" onclick="onChangeFont(this)">A+</button>
+                    <button class="dec-font" data-id="-1" onclick="onChangeFont(this)">A-</button>
+                    <button onclick="onLineUp()">UP</button>
+                    <button onclick="onLineDown()">DOWN</button>
+                </div>
+            </div>
+    </main>
+    <footer class="flex diraction-column justify-center align-center">
+        <img class="logo align-self" src="./imgs/logo.png" alt="">
+        <small class="footer-txt">all rights reserved 2019</small>
+    </footer>
+    <script src="js/memeController.js"></script>
+    <script src="js/memeService.js"></script>
 </body>
 
 </html>

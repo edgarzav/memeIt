@@ -15,7 +15,7 @@ function onLineUp() {
 function renderGallery() {
     let imgs = getImagesToRender();
     let divs = imgs.map(img => {
-        return `<div class="" onclick="loadCanvas(${img.id})">
+        return `<div class="image-container" onclick="loadCanvas(${img.id})">
                 <img class="image-item" src="${img.url}" alt="">
                 </div>`
     });
