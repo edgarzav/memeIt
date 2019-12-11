@@ -1,5 +1,5 @@
 var gKeywords = { 'happy': 12, 'funny puk': 1 }
-var gImgs = [{ id: 2, url: '../meme-imgs/005.jpg', keywords: ['happy'] }];
+var gImgs = [{ id: 2, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
 var gMeme = {
     selectedImgId: 1,
     selectedTxtIdx: 0,
@@ -68,8 +68,8 @@ function setImage(url) {
 
 
 function setImages() {
-    gImgs.push(setImage('../meme-imgs/003.jpg'));
-    gImgs.push(setImage('/meme-imgs/004.jpg'));
+    gImgs.push(setImage('./meme-imgs/003.jpg'));
+    gImgs.push(setImage('./meme-imgs/004.jpg'));
 
 }
 
