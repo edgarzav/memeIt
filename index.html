@@ -19,11 +19,21 @@
         </ul>
     </nav>
     <div class="gallery-container flex"></div>
+    <div class="meme-edit" hidden>
+        <div class="canvas-container flex justify-center">
+            <canvas id="my-canvas" width="700" height="500"
+           
+                >
+                Canvas
+            </canvas>
+            <input type="text" class="txt-input" onkeydown="onSetTxtToMeme(this)">
+        </div>
 
+        <!-- onmousedown="onMouseDown()" onmouseup="onMouseUp()" -->
+        <!-- onmousemove="onDraw(event)" -->
 
-
-    <script src="js/memeController.js"></script>
-    <script src="js/memeService.js"></script>
+        <script src="js/memeController.js"></script>
+        <script src="js/memeService.js"></script>
 </body>
 
 </html>

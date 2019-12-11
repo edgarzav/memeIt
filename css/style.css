@@ -54,3 +54,7 @@ padding-bottom: 10px;
 .space-between{
     justify-content: space-between;
 }
+
+.justify-center{
+    justify-content: center;
+}
