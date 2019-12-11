@@ -18,19 +18,21 @@
             <li class="main-menu-btn align-center">About</li>
         </ul>
     </nav>
-    <div class="gallery-container flex"></div>
+    <div class="gallery-container grid container"></div>
     <div class="meme-edit" hidden>
-        <div class="canvas-container flex justify-center">
-            <canvas id="my-canvas" width="700" height="500"
-           
-                >
+        <div class="canvas-container flex space-between container">
+            <canvas id="my-canvas" width="500" height="500">
                 Canvas
             </canvas>
-            <input type="text" class="txt-input" onkeydown="onSetTxtToMeme(this)">
+            <div class="properties-container flex diraction-column">
+                <input type="text" class="txt-input" placeholder="Your text here" onkeyup="onSetTxtToMeme(event,this)">
+                <button class="txt-toggle-btn" onclick="txtLineToggle()">toggle lines</button>
+                <button class="inc-font" data-id="1" onclick="onChangeFont(this)">A+</button>
+                <button class="dec-font" data-id="-1" onclick="onChangeFont(this)">A-</button>
+                <button onclick="onLineUp()">UP</button>
+                <button onclick="onLineDown()">DOWN</button>
+            </div>
         </div>
-
-        <!-- onmousedown="onMouseDown()" onmouseup="onMouseUp()" -->
-        <!-- onmousemove="onDraw(event)" -->
 
         <script src="js/memeController.js"></script>
         <script src="js/memeService.js"></script>

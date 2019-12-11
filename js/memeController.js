@@ -1,35 +1,74 @@
 const gCanvas = document.getElementById('my-canvas');
 const gCtx = gCanvas.getContext('2d')
-let gImg;
+let gImg, gtxtLine = 0;
 
 function init() {
     setImages()
     renderGallery()
-    // drawText('Coding Academy', 20, 80)
 }
 
-function loadCanvas(id){
+
+function onLineUp() {
+    gMeme.selectedTxtIdx = 0
+    document.querySelector('.txt-input').value = ''
+}
+function onLineDown() {
+    gMeme.selectedTxtIdx = 1
+    document.querySelector('.txt-input').value = ''
+}
+
+
+
+function txtLineToggle() {
+    gMeme.selectedTxtIdx = gMeme.selectedTxtIdx === 1 ? 0 : 1
+    document.querySelector('.txt-input').value = ''
+}
+
+function loadCanvas(id) {
+    setCurrImgId(id);
     drawImg(id)// <=
-console.log(id);
-document.querySelector('.gallery-container').style.display = 'none';
-document.querySelector('.meme-edit').style.display = 'block';
+    setCurrImgId(id);
+    document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.meme-edit').style.display = 'block';
 
 }
 
 
-function onSetTxtToMeme(elTxt) {
-    console.log(elTxt.value);
-    addTxtToMeme(elTxt.value);
-    if (gImg) {
-        drawText(gMeme.txts[0].line, 20, 80)
-    }
+function drawText(txt, x, y) {
+    let fontSize = getFontSize()
+    gCtx.fillStyle = '#fff'
+    gCtx.strokeStyle = 'green'
+    gCtx.lineWidth = 2
+    gCtx.font = `${fontSize}px impact`;
+    gCtx.fillText(txt, x, y);
+    gCtx.strokeText(txt, x, y);
+}
 
+
+function onChangeFont(elBtn) {
+    let value = +elBtn.dataset.id;
+    updateFont(value)
+ 
+}
+
+function onSetTxtToMeme(ev, elTxt) {
+    if (ev.which === 8) {
+        let memeId = getCurrMemeId();
+        drawImg(memeId)
+
+    }
+    addTxtToMeme(ev, elTxt.value);
+    let txt = getTxtToRender();
+    if (gImg) {
+        if (gMeme.selectedTxtIdx === 0) {
+            drawText(txt, 20, 80)
+        } else {
+            drawText(txt, 20, 400)
+        }
+    }
 }
 
 function drawImg(id) {
-    // const img = document.querySelector('img');
-    // gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
-    //let ctx = getContext();
     let imgIndex = getImgIndexById(id);
 
     if (gImg)
@@ -42,39 +81,7 @@ function drawImg(id) {
 
         };
     }
-    // NOTE: the proportion of the image - should be as the canvas,
-    // otherwise the image gets distorted
 }
-
-function drawText(txt, x, y) {
-    console.log(x, ' ', y);
-
-    gCtx.fillStyle = '#fff'
-    gCtx.strokeStyle = 'green'
-    gCtx.lineWidth = 2
-    gCtx.font = "40px Arial";
-    gCtx.fillText(txt, x, y);
-    gCtx.strokeText(txt, x, y);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -89,5 +96,5 @@ function renderGallery() {
                 <img class="image-item" src="${img.url}" alt="">
                 </div>`
     });
-    document.querySelector('.gallery-container').innerHTML = divs.join()
+    document.querySelector('.gallery-container').innerHTML = divs.join('');
 }
