@@ -1,34 +1,49 @@
-var gKeywords = { 'happy': 12, 'funny puk': 1 }
-var gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
-var gMeme = {
+let gKeywords = { 'happy': 12, 'funny puk': 1 }
+let gImg;
+let idx = 1;
+let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
+let gMeme = {
     selectedImgId: 1,
     selectedTxtIdx: 0,
     txts: [
         {
             line: '',
-            size: 20,
+            size: 40,
             align: 'left',
             color: 'red'
         },
         {
             line: '',
-            size: 20,
+            size: 40,
             align: 'left',
             color: 'red'
         }
     ]
 }
 
+function setImg(img) {
+    gImg = img;
+}
+
+function getImg() {
+    return gImg
+}
 function updateFontSize(value) {
-    gMeme.txts[selectedTxtIdx].size = value;
+    gMeme.txts[gMeme.selectedTxtIdx].size += value;
 }
 
 function getFontSize() {
-    console.log(gMeme.txts[selectedTxtIdx].size);
-    
-    return gMeme.txts[selectedTxtIdx].size
+    return gMeme.txts[gMeme.selectedTxtIdx].size
 }
 
+
+function getCurrTxtIdx() {
+    return gMeme.selectedTxtIdx;
+}
+
+function setCurrTxtIdx(index) {
+    gMeme.selectedTxtIdx = index;
+}
 
 function getContext() {
     return gCtx;
@@ -56,22 +71,6 @@ function getImgIndexById(id) {
     })
 }
 
-
-
-
-// function loadCanvas() {
-//     gCanvas = document.getElementById('my-canvas');
-//     ctx = gCanvas.getContext('2d')
-// }
-
-
-
-
-
-
-
-let idx = 1;
-
 function setImage(url) {
     return {
         id: idx++,
@@ -89,8 +88,5 @@ function setImages() {
 }
 
 function getImagesToRender() {
-    console.log(gImgs.length);
-    console.log(gImgs);
-
     return gImgs
 }

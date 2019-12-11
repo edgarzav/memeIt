@@ -1,6 +1,5 @@
 const gCanvas = document.getElementById('my-canvas');
 const gCtx = gCanvas.getContext('2d')
-let gImg, gtxtLine = 0;
 
 function init() {
     setImages()
@@ -12,27 +11,38 @@ function onLineUp() {
     gMeme.selectedTxtIdx = 0
     document.querySelector('.txt-input').value = ''
 }
+
+function renderGallery() {
+    let imgs = getImagesToRender();
+    let divs = imgs.map(img => {
+        return `<div class="" onclick="loadCanvas(${img.id})">
+                <img class="image-item" src="${img.url}" alt="">
+                </div>`
+    });
+    document.querySelector('.gallery-container').innerHTML = divs.join('');
+}
+
+function loadCanvas(id) {
+    setCurrImgId(id);
+    drawImg(id)
+    setCurrImgId(id);
+    document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.meme-edit').style.display = 'block';
+}
+
+
 function onLineDown() {
     gMeme.selectedTxtIdx = 1
     document.querySelector('.txt-input').value = ''
 }
 
-
-
 function txtLineToggle() {
-    gMeme.selectedTxtIdx = gMeme.selectedTxtIdx === 1 ? 0 : 1
+    let currIdx = getCurrTxtIdx()
+    let idx = currIdx === 1 ? 0 : 1;
+
+    setCurrTxtIdx(idx)
     document.querySelector('.txt-input').value = ''
 }
-
-function loadCanvas(id) {
-    setCurrImgId(id);
-    drawImg(id)// <=
-    setCurrImgId(id);
-    document.querySelector('.gallery-container').style.display = 'none';
-    document.querySelector('.meme-edit').style.display = 'block';
-
-}
-
 
 function drawText(txt, x, y) {
     let fontSize = getFontSize()
@@ -47,19 +57,18 @@ function drawText(txt, x, y) {
 
 function onChangeFont(elBtn) {
     let value = +elBtn.dataset.id;
-    updateFont(value)
- 
+    updateFontSize(value)
 }
 
 function onSetTxtToMeme(ev, elTxt) {
+    let img = getImg()
     if (ev.which === 8) {
         let memeId = getCurrMemeId();
         drawImg(memeId)
-
     }
     addTxtToMeme(ev, elTxt.value);
     let txt = getTxtToRender();
-    if (gImg) {
+    if (img) {
         if (gMeme.selectedTxtIdx === 0) {
             drawText(txt, 20, 80)
         } else {
@@ -70,31 +79,15 @@ function onSetTxtToMeme(ev, elTxt) {
 
 function drawImg(id) {
     let imgIndex = getImgIndexById(id);
-
-    if (gImg)
-        gCtx.drawImage(gImg, 0, 0, gCanvas.width, gCanvas.height)
+    let img;
+    if (img)
+        gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
     else {
-        gImg = new Image()
-        gImg.src = gImgs[imgIndex].url
-        gImg.onload = () => {
-            gCtx.drawImage(gImg, 0, 0, gCanvas.width, gCanvas.height)
-
+        img = new Image()
+        img.src = gImgs[imgIndex].url
+        img.onload = () => {
+            gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height)
         };
     }
-}
-
-
-
-
-
-
-function renderGallery() {
-    let imgs = getImagesToRender();
-
-    let divs = imgs.map(function (img) {
-        return `<div class="" onclick="loadCanvas(${img.id})">
-                <img class="image-item" src="${img.url}" alt="">
-                </div>`
-    });
-    document.querySelector('.gallery-container').innerHTML = divs.join('');
+    setImg(img)
 }
