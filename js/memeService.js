@@ -17,24 +17,6 @@ var gMeme = {
             color: 'red'
         }
     ]
-
-
-
-    // [
-    //     {
-    //         line: ''
-    //     },
-    //     {
-    //         line: ''
-    //     }
-    // ]
-    // [{
-    // line: 'I never eat Falafel'
-    // ,
-    // size: 20,
-    // align: 'left',
-    // color: 'red'
-    // }]
 }
 
 function updateFontSize(value) {
