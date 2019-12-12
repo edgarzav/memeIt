@@ -1,6 +1,5 @@
 'use strict'
 let gKeywords = { 'happy': 12, 'funny puk': 1 }
-const CANVASKEY = 'ctxMeme'
 let gPosLine = 80;
 let idx = 1;
 let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
@@ -18,17 +17,11 @@ function selectLineByPos(offsetX, offsetY) {
     if (pos !== -1) gMeme.selectedTxtIdx = pos
 }
 
-
-function downloadImg(elLink,canvas) {
+function downloadImg(elLink, canvas) {
     const data = canvas.toDataURL()
     elLink.href = data
     elLink.download = 'my-img.png'
 }
-
-function getCtxFromStorage() {
-    return loadFromStorage(CANVASKEY);
-}
-
 
 function getSelectedLineTxt() {
     return gMeme.txts[gMeme.selectedTxtIdx].line;
@@ -87,19 +80,18 @@ function createNewLine() {
     }
 }
 
-
+function saveMeme() {
+    saveToStorage(CANVASKEY)
+}
 
 function setTxtAlign(dir) {
     gMeme.txts[gMeme.selectedTxtIdx].align = dir;
-    console.log(gMeme.txts[gMeme.selectedTxtIdx].align);
-
 }
 
 function addTxtToMeme(txt) {
     if (gMeme.txts.length)
         gMeme.txts[gMeme.selectedTxtIdx].line = txt
 }
-
 
 function updateFontSize(value) {
     gMeme.txts[gMeme.selectedTxtIdx].size += value;
@@ -124,14 +116,13 @@ function getSelectedImg() {
     return img.url
 }
 
-function setTxtFont(selectedFont){
+function setTxtFont(selectedFont) {
     gMeme.txts[gMeme.selectedTxtIdx].font = selectedFont;
 }
 
-function setFilledColor(color){
+function setFilledColor(color) {
     gMeme.txts[gMeme.selectedTxtIdx].color = color;
 }
-
 
 function setCurrImgId(imgId) {
     gMeme.selectedImgId = imgId;

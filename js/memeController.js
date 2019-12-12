@@ -5,8 +5,6 @@ let gOnMouseDown = false
 function init() {
     setImages()
     renderGallery()
-    // resizeCanvasListener()
-
 }
 
 function renderGallery() {
@@ -18,6 +16,7 @@ function renderGallery() {
     });
     document.querySelector('.gallery-container').innerHTML = divs.join('');
 }
+
 
 function loadCanvas(id) {
     setCurrImgId(id);
@@ -154,8 +153,6 @@ function onChangeFontSize(elBtn) {
 function onSetFont(elSelected) {
     setTxtFont(elSelected.value)
     drawImg();
-
-
 }
 
 function drawImg() {
@@ -176,6 +173,21 @@ function toggleMenu() {
     document.body.classList.toggle('menu-open');
 }
 
-function onShare(elForm,ev){
-    uploadImg(elForm,ev)
+function onShare(elForm, ev) {
+    uploadImg(elForm, ev)
+}
+
+function onImgInput(ev) {
+    loadImageFromInput(ev, renderCanvas)
+}
+function loadImageFromInput(ev, onImageReady) {
+    document.querySelector('.share-container').innerHTML = ''
+    var reader = new FileReader();
+    
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = onImageReady.bind(null, img)
+        img.src = event.target.result;
     }
+    reader.readAsDataURL(ev.target.files[0]);
+}

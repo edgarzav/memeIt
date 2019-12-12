@@ -12,10 +12,10 @@
 <body onload="init()">
     <nav class="main-nav flex space-between align-items container">
         <img class="logo" src="./imgs/logo.png" alt="" onclick="onGalleryShow()">
-        <button  class="mobile-menu-btn" onclick="toggleMenu()" hidden>☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()" hidden>☰</button>
         <ul class="main-menu flex clean-list">
             <li class="main-menu-btn align-center" onclick="onGalleryShow()">Gallery</li>
-            <li class="main-menu-btn align-center" >About</li>
+            <li class="main-menu-btn align-center" onclick="OnRenderSavedGallery()">About</li>
         </ul>
     </nav>
     <div class="main-container flex justify-center space-between">
@@ -32,29 +32,36 @@
             <div class="properties-container flex diraction-column align-items">
                 <div class="properties-first flex justify-center wrap">
                     <input type="text" class="txt-input" placeholder="Your text here" onkeyup="onSetTxtToMeme(this)">
-                    <button class="txt-toggle-btn"  title="Toggle lines"  onclick="onTxtLineToggle()"></button>
-                    <button class="add-line-btn"  title="Add line"  onclick="onAddLine()"></button>
-                    <button class="delete-line-btn"  title="Delete line"  onclick="onDeleteLine()"></button>
+                    <button class="txt-toggle-btn" title="Toggle lines" onclick="onTxtLineToggle()"></button>
+                    <button class="add-line-btn" title="Add line" onclick="onAddLine()"></button>
+                    <button class="delete-line-btn" title="Delete line" onclick="onDeleteLine()"></button>
                 </div>
                 <div class="properties-second flex space-between wrap">
-                    <button class="inc-font" title="Indrease font size" data-id="0.1" onclick="onChangeFontSize(this)">A+</button>
-                    <button class="dec-font" title="Decrease font size" data-id="-0.1" onclick="onChangeFontSize(this)">A-</button>
-                    <button class="txt-align-left" data-id="left" title="Align text left" onclick="onTxtAlign(this)"></button>
-                    <button class="txt-align-center" data-id="center" title="Align text center"  onclick="onTxtAlign(this)"></button>
-                    <button class="txt-align-right" data-id="right"  title="Align text right"  onclick="onTxtAlign(this)"></button>
-                    <select name="fonts" class="fonts-select"  onchange="onSetFont(this)">
+                    <button class="inc-font" title="Indrease font size" data-id="0.1"
+                        onclick="onChangeFontSize(this)">A+</button>
+                    <button class="dec-font" title="Decrease font size" data-id="-0.1"
+                        onclick="onChangeFontSize(this)">A-</button>
+                    <button class="txt-align-left" data-id="left" title="Align text left"
+                        onclick="onTxtAlign(this)"></button>
+                    <button class="txt-align-center" data-id="center" title="Align text center"
+                        onclick="onTxtAlign(this)"></button>
+                    <button class="txt-align-right" data-id="right" title="Align text right"
+                        onclick="onTxtAlign(this)"></button>
+                    <select name="fonts" class="fonts-select" onchange="onSetFont(this)">
                         <option value="impact">impact</option>
                         <option value="sans-serif">sans serif</option>
                     </select>
                     <button class="txt-stroke-btn" onclick="onTxtStroke()">A</button>
                     <input type="color" class="txt-color-input" onchange="onColorChange(event)">
                 </div>
-                <a class="download-btn" href="#" onclick="onDownloadMeme(this)" download="">Download</a>
-                <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShare(this, event)">
-                    <input name="img" id="imgData" type="hidden" />
-                    <button class="btn publish-btn" type="submit">PUBLISH</button>
-                    <div class="share-container"></div>
-                </form>
+                <div class="share flex">
+                    <a class="download-btn" href="#" onclick="onDownloadMeme(this)" download="">Download</a>
+                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShare(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="btn publish-btn" type="submit">PUBLISH</button>
+                        <div class="share-container"></div>
+                    </form>
+                </div>
             </div>
 
         </div>
@@ -66,7 +73,6 @@
     </footer>
 
     <script src="js/uploadService.js"></script>
-    <script src="js/localStorage.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/memeService.js"></script>
 </body>

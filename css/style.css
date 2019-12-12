@@ -128,7 +128,8 @@ button {
 }
 
 .download-btn ,.publish-btn{
-    width: 120px;
+    margin: 2px;
+    width: 110px;
     height: 31px;
     border-radius: 12px;
     color: white;
@@ -139,7 +140,7 @@ button {
 }
 
 .publish-btn{
- padding-bottom: 30px;
+ padding-bottom: 31px;
 }
 
 .txt-align-right {
