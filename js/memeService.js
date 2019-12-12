@@ -1,25 +1,34 @@
 'use strict'
 let gKeywords = { 'happy': 12, 'funny puk': 1 }
-let gImg;
+const CANVASKEY = 'ctxMeme'
 let gPosLine = 80;
 let idx = 1;
 let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
 let gMeme = {
     selectedImgId: 1,
     selectedTxtIdx: 0,
-    txts: [
-        {
-            line: '',
-            size: 3.2,
-            align: 'left',
-            color: 'red',
-            pos: {
-                posX: 20,
-                posY: gPosLine
-            }
-        }
-    ]
+    txts: []
 }
+
+function selectLineByPos(offsetX, offsetY) {
+    let pos = gMeme.txts.findIndex(txt => {
+        return txt.pos.posX < offsetX &&
+            txt.pos.posY > offsetY && txt.pos.posY < offsetY + gPosLine
+    })
+    if (pos !== -1) gMeme.selectedTxtIdx = pos
+}
+
+
+function downloadImg(elLink,canvas) {
+    const data = canvas.toDataURL()
+    elLink.href = data
+    elLink.download = 'my-img.png'
+}
+
+function getCtxFromStorage() {
+    return loadFromStorage(CANVASKEY);
+}
+
 
 function getSelectedLineTxt() {
     return gMeme.txts[gMeme.selectedTxtIdx].line;
@@ -29,14 +38,38 @@ function getTxtLines() {
     return gMeme.txts;
 }
 
+function deleteSelectedLine() {
+    gMeme.txts.splice(gMeme.selectedTxtIdx, 1)
+    if (!gMeme.length) gMeme.selectedTxtIdx = 0
+}
+
 function setNewLine() {
+    if (gMeme.txts.length)
+        gMeme.selectedTxtIdx++;
     gMeme.txts.push(createNewLine())
-    gMeme.selectedTxtIdx++;
+}
+
+function setLineStroke() {
+    if (gMeme.txts[gMeme.selectedTxtIdx].stroke) {
+        gMeme.txts[gMeme.selectedTxtIdx].stroke = false;
+    } else gMeme.txts[gMeme.selectedTxtIdx].stroke = true
+
+}
+
+function setPosToLine(posX, posY) {
+    gMeme.txts[gMeme.selectedTxtIdx].pos.posX = posX
+    gMeme.txts[gMeme.selectedTxtIdx].pos.posY = posY
 }
 
 function getLinePos() {
     let txtIdx = gMeme.selectedTxtIdx;
-    return gMeme.txts[txtIdx].pos;
+    if (gMeme.txts.length) {
+        return gMeme.txts[txtIdx].pos;
+    }
+}
+
+function checkIfTxtIsEmpty() {
+    return gMeme.txts
 }
 
 function createNewLine() {
@@ -44,29 +77,34 @@ function createNewLine() {
         line: '',
         pos: {
             posX: 20,
-            posY: (gPosLine += 80)
+            posY: (gPosLine += 60)
         },
-        size: 3.2
+        size: 3.2,
+        align: 'left',
+        stroke: true,
+        font: 'impact',
+        color: '#fff'
     }
 }
 
-function addTxtToMeme(txt) {
-    gMeme.txts[gMeme.selectedTxtIdx].line = txt
+
+
+function setTxtAlign(dir) {
+    gMeme.txts[gMeme.selectedTxtIdx].align = dir;
+    console.log(gMeme.txts[gMeme.selectedTxtIdx].align);
+
 }
 
-function getMeme() {
-    return gMeme;
+function addTxtToMeme(txt) {
+    if (gMeme.txts.length)
+        gMeme.txts[gMeme.selectedTxtIdx].line = txt
 }
+
 
 function updateFontSize(value) {
     gMeme.txts[gMeme.selectedTxtIdx].size += value;
 }
 
-
-function setLineUp() {
-    if (gMeme.selectedTxtIdx)
-        gMeme.selectedTxtIdx--;
-}
 
 function toggleTxtLines() {
     if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) {
@@ -78,9 +116,6 @@ function getCurrTxt() {
     let txtIdx = gMeme.selectedTxtIdx
     return gMeme.txts[txtIdx].line;
 }
-function setSelectedImg(img) {
-
-}
 
 function getSelectedImg() {
     let img = gImgs.find(img => {
@@ -89,10 +124,14 @@ function getSelectedImg() {
     return img.url
 }
 
-
-function getContext() {
-    return gCtx;
+function setTxtFont(selectedFont){
+    gMeme.txts[gMeme.selectedTxtIdx].font = selectedFont;
 }
+
+function setFilledColor(color){
+    gMeme.txts[gMeme.selectedTxtIdx].color = color;
+}
+
 
 function setCurrImgId(imgId) {
     gMeme.selectedImgId = imgId;
@@ -103,7 +142,7 @@ function getCurrMemeId() {
 }
 
 function getTxtToRender() {
-    return gMeme.txts[gMeme.selectedTxtIdx].line
+    return gMeme.txts[gMeme.selectedTxtIdx]
 }
 
 function getImgIndexById(id) {
