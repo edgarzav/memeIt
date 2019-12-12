@@ -1,9 +1,4 @@
 @font-face {
-    font-family: impact;
-    src: url(../fonts/impact/impact.ttf);
-}
-
-@font-face {
     font-family: monte;
     src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
 }
@@ -40,6 +35,11 @@ body {
     padding-bottom: 30px;
 }
 
+.meme-edit {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
 .logo {
     width: 133px;
     height: 22px;
@@ -62,11 +62,17 @@ body {
 
 .image-item {
     width: 100%;
+    cursor: pointer;
 }
 
 .txt-input {
-    height: 20px;
+    padding-left: 1rem;
+    font-size: 1rem;
+    height: 40px;
     width: 200px;
+    border-radius: 10px;
+    border: none;
+    background-color: #fff;
 }
 
 .footer-txt {

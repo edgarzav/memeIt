@@ -17,7 +17,7 @@
             <li class="main-menu-btn align-center">About</li>
         </ul>
     </nav>
-    <main class="main-container flex justify-center">
+    <main class="main-container flex justify-center space-between">
         <div class="gallery-container grid container"></div>
 
         <div class="meme-edit" hidden>
@@ -25,16 +25,16 @@
                 <canvas id="my-canvas" width="500" height="500">
                     Canvas
                 </canvas>
-                <div class="properties-container flex diraction-column">
-                    <input type="text" class="txt-input" placeholder="Your text here"
-                        onkeyup="onSetTxtToMeme(event,this)">
-                    <button class="txt-toggle-btn" onclick="txtLineToggle()">toggle lines</button>
-                    <button class="inc-font" data-id="1" onclick="onChangeFont(this)">A+</button>
-                    <button class="dec-font" data-id="-1" onclick="onChangeFont(this)">A-</button>
-                    <button onclick="onLineUp()">UP</button>
-                    <button onclick="onLineDown()">DOWN</button>
-                </div>
             </div>
+            <div class="properties-container flex diraction-column">
+                <input type="text" class="txt-input" placeholder="Your text here" onkeyup="onSetTxtToMeme(event,this)">
+                <button class="txt-toggle-btn" onclick="onTxtLineToggle()">toggle lines</button>
+                <button class="inc-font" data-id="0.1" onclick="onChangeFont(this)">A+</button>
+                <button class="dec-font" data-id="-0.1" onclick="onChangeFont(this)">A-</button>
+                <button onclick="onLineUp()">UP</button>
+                <button onclick="onLineDown()">DOWN</button>
+            </div>
+        </div>
     </main>
     <footer class="flex diraction-column justify-center align-center">
         <img class="logo align-self" src="./imgs/logo.png" alt="">

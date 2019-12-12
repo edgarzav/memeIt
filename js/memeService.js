@@ -1,5 +1,7 @@
+'use strict'
 let gKeywords = { 'happy': 12, 'funny puk': 1 }
 let gImg;
+let gPosLine = 80;
 let idx = 1;
 let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
 let gMeme = {
@@ -8,42 +10,85 @@ let gMeme = {
     txts: [
         {
             line: '',
-            size: 40,
+            size: 3.2,
             align: 'left',
-            color: 'red'
-        },
-        {
-            line: '',
-            size: 40,
-            align: 'left',
-            color: 'red'
+            color: 'red',
+            pos: {
+                posX: 20,
+                posY: gPosLine
+            }
         }
     ]
 }
 
-function setImg(img) {
-    gImg = img;
+function getSelectedLineTxt() {
+    return gMeme.txts[gMeme.selectedTxtIdx].line;
 }
 
-function getImg() {
-    return gImg
+function getTxtLines() {
+    return gMeme.txts;
 }
+
+function setNewLine() {
+    gMeme.txts.push(createNewLine())
+    gMeme.selectedTxtIdx++;
+}
+
+function getLinePos() {
+    let txtIdx = gMeme.selectedTxtIdx;
+    return gMeme.txts[txtIdx].pos;
+}
+
+function createNewLine() {
+    return {
+        line: '',
+        pos: {
+            posX: 20,
+            posY: (gPosLine += 80)
+        },
+        size: 3.2
+    }
+}
+
+function addTxtToMeme(txt) {
+    gMeme.txts[gMeme.selectedTxtIdx].line = txt
+}
+
+function getMeme() {
+    return gMeme;
+}
+
 function updateFontSize(value) {
     gMeme.txts[gMeme.selectedTxtIdx].size += value;
 }
 
-function getFontSize() {
-    return gMeme.txts[gMeme.selectedTxtIdx].size
+
+function setLineUp() {
+    if (gMeme.selectedTxtIdx)
+        gMeme.selectedTxtIdx--;
 }
 
-
-function getCurrTxtIdx() {
-    return gMeme.selectedTxtIdx;
+function toggleTxtLines() {
+    if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) {
+        gMeme.selectedTxtIdx = 0;
+    } else gMeme.selectedTxtIdx++
 }
 
-function setCurrTxtIdx(index) {
-    gMeme.selectedTxtIdx = index;
+function getCurrTxt() {
+    let txtIdx = gMeme.selectedTxtIdx
+    return gMeme.txts[txtIdx].line;
 }
+function setSelectedImg(img) {
+
+}
+
+function getSelectedImg() {
+    let img = gImgs.find(img => {
+        return img.id === gMeme.selectedImgId
+    })
+    return img.url
+}
+
 
 function getContext() {
     return gCtx;
@@ -57,16 +102,12 @@ function getCurrMemeId() {
     return gMeme.selectedImgId;
 }
 
-function addTxtToMeme(ev, txt) {
-    gMeme.txts[gMeme.selectedTxtIdx].line = txt;
-}
-
 function getTxtToRender() {
     return gMeme.txts[gMeme.selectedTxtIdx].line
 }
 
 function getImgIndexById(id) {
-    return gImgs.findIndex(function (img) {
+    return gImgs.findIndex(img => {
         return img.id === id
     })
 }
@@ -77,7 +118,6 @@ function setImage(url) {
         url
     }
 }
-
 
 function setImages() {
     let zerosStr = '00';
