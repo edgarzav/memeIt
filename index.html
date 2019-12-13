@@ -10,11 +10,14 @@
 </head>
 
 <body onload="init()">
+    <div class="share-modal flex space-around align-items diraction-column" hidden></div>
+
     <nav class="main-nav flex space-between align-items container">
         <img class="logo" src="./imgs/logo.png" alt="" onclick="onGalleryShow()">
         <button class="mobile-menu-btn" onclick="toggleMenu()" hidden>☰</button>
         <ul class="main-menu flex clean-list">
             <li class="main-menu-btn align-center" onclick="onGalleryShow()">Gallery</li>
+            <li class="main-menu-btn align-center" onclick="onMemesShow()">Memes</li>
         </ul>
     </nav>
     <div class="main-container flex justify-center space-between">
@@ -36,10 +39,10 @@
                     <button class="delete-line-btn" title="Delete line" onclick="onDeleteLine()"></button>
                 </div>
                 <div class="properties-second flex space-between wrap">
-                    <button class="inc-font" title="Indrease font size" data-id="0.1"
-                        onclick="onChangeFontSize(this)">A+</button>
-                    <button class="dec-font" title="Decrease font size" data-id="-0.1"
-                        onclick="onChangeFontSize(this)">A-</button>
+                    <button class="inc-font-btn" title="Indrease font size" data-id="0.1"
+                        onclick="onChangeFontSize(this)"></button>
+                    <button class="dec-font-btn" title="Decrease font size" data-id="-0.1"
+                        onclick="onChangeFontSize(this)"></button>
                     <button class="txt-align-left" data-id="left" title="Align text left"
                         onclick="onTxtAlign(this)"></button>
                     <button class="txt-align-center" data-id="center" title="Align text center"
@@ -50,15 +53,15 @@
                         <option value="impact">impact</option>
                         <option value="sans-serif">sans serif</option>
                     </select>
-                    <button class="txt-stroke-btn" onclick="onTxtStroke()">A</button>
-                    <input type="color" class="txt-color-input" onchange="onColorChange(event)">
+                    <button class="txt-stroke-btn" onclick="onTxtStroke()"></button>
+                    <input type="color" id="color-input" class="txt-color-input" onchange="onColorChange(event)">
+                    <label for="color-input" class="input-background"></label>
                 </div>
-                <div class="share flex">
-                    <a class="download-btn" href="#" onclick="onDownloadMeme(this)" download="">Download</a>
-                    <form action="" method="POST" enctype="multipart/form-data" onsubmit="onShare(this, event)">
+                <div class="share">
+                    <form class="share-form" action="" method="POST" enctype="multipart/form-data"
+                        onsubmit="onShare(this, event)">
                         <input name="img" id="imgData" type="hidden" />
-                        <button class="btn publish-btn" type="submit">PUBLISH</button>
-                        <div class="share-container"></div>
+                        <button class="btn share-btn" type="submit">Share</button>
                     </form>
                 </div>
             </div>

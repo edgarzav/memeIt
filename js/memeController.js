@@ -18,6 +18,17 @@ function renderGallery() {
 }
 
 
+function renderCreatedMems() {
+    // let imgs = getImagesToRender();
+    let divs = imgs.map(img => {
+        return `<div class="image-container" onclick="loadCanvas(${img.id})">
+                <img class="image-item" src="${img.url}" alt="">
+                </div>`
+    });
+    document.querySelector('.gallery-container').innerHTML = divs.join('');
+}
+
+
 function loadCanvas(id) {
     setCurrImgId(id);
     setNewLine();
@@ -29,8 +40,14 @@ function loadCanvas(id) {
 }
 
 function onGalleryShow() {
+    resetMemeData();
+    document.querySelector('.txt-input').value = ''
     document.querySelector('.gallery-container').style.display = 'grid';
     document.querySelector('.meme-edit').style.display = 'none';
+}
+function onSaveMeme(tst){
+console.log(tst);
+
 }
 
 function onTxtAlign(elAlignDir) {
@@ -135,6 +152,7 @@ function onTxtStroke() {
 
 function drawRect() {
     let selectedPos = getLinePos();
+
     if (selectedPos) {
         gCtx.beginPath();
         gCtx.rect(selectedPos.posX, selectedPos.posY - 50, 450, 70)
@@ -172,8 +190,13 @@ function drawImg() {
 function toggleMenu() {
     document.body.classList.toggle('menu-open');
 }
+function onCloseModal() {
+    document.querySelector('.share-modal').style.visibility = 'hidden';
+    document.querySelector('.main-container').classList.remove('blur');
+}
 
 function onShare(elForm, ev) {
+    document.querySelector('.main-container').classList.add('blur');
     uploadImg(elForm, ev)
 }
 
@@ -183,7 +206,7 @@ function onImgInput(ev) {
 function loadImageFromInput(ev, onImageReady) {
     document.querySelector('.share-container').innerHTML = ''
     var reader = new FileReader();
-    
+
     reader.onload = function (event) {
         var img = new Image();
         img.onload = onImageReady.bind(null, img)
@@ -191,3 +214,7 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0]);
 }
+
+// function clearCanvas() {
+//     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height)
+// }

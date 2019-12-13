@@ -3,9 +3,9 @@
     src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
 }
 
-[hidden] {
+/* [hidden] {
     display: none;
-}
+} */
 
 html {
     font-family: Arial, Helvetica, sans-serif;
@@ -25,6 +25,7 @@ button {
     width: 60px;
     height: 60px;
     margin: 8px;
+    cursor: pointer;
 }
 
 .main-container {
@@ -50,8 +51,8 @@ button {
 }
 
 .meme-edit {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    padding-bottom: 27px;
+    padding-top: 27px;
     display: none;
     width: 1200px;
 }
@@ -61,7 +62,7 @@ button {
     width: 350px;
 }
 
-.mobile-menu-btn{
+.mobile-menu-btn {
     visibility: hidden;
 }
 
@@ -106,6 +107,27 @@ button {
     background-position: center;
 }
 
+.inc-font-btn {
+    background-image: url(./icones/inc-font-icon.svg);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+}
+
+.txt-stroke-btn {
+    background-image: url(./icones/text-stroke.png);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+}
+
+.dec-font-btn {
+    background-image: url(./icones/reduce-font-icon.svg);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+}
+
 .delete-line-btn {
     background-image: url(./icones/trash-icon.svg);
     background-repeat: no-repeat;
@@ -127,9 +149,9 @@ button {
     background-position: center;
 }
 
-.download-btn ,.publish-btn{
+.download-btn, .share-btn, .facebook-btn, .save-btn {
     margin: 2px;
-    width: 110px;
+    min-width: 110px;
     height: 31px;
     border-radius: 12px;
     color: white;
@@ -137,10 +159,38 @@ button {
     text-align: center;
     background-color: #ff7f00;
     padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
-.publish-btn{
- padding-bottom: 31px;
+.share-btn {
+    padding-bottom: 31px;
+}
+
+.share-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.share-modal {
+    z-index: 99;
+    position: fixed;
+    top: 300px;
+    height: calc(100vh - 600px);
+    left: 450px;
+    width: calc(100% - 900px);
+    min-width: 300px;
+    background-color: rgba(255, 255, 255, 0.89);
+    visibility: hidden;
+    border-radius: 10px;
+    transition: .7ms;
+}
+
+.close-modal {
+    cursor: pointer;
+    padding-right: 10px;
+    align-self: flex-end;
 }
 
 .txt-align-right {
@@ -154,6 +204,20 @@ button {
     border: none;
     width: 60px;
     height: 60px;
+    display: none;
+}
+
+.input-background {
+    background-image: url(./icones/paint-bar-icon.svg);
+    background-color: #fff;
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+    border-radius: 10px;
+    width: 60px;
+    height: 60px;
+    margin: 8px;
+    cursor: pointer;
 }
 
 .fonts-select {
@@ -161,12 +225,18 @@ button {
     border: none;
     width: 205px;
     height: 50px;
+    font-size: 1.1rem;
 }
 
 .image-item {
     width: 100%;
     cursor: pointer;
 }
+
+.image-item:hover {
+    filter: brightness(120%);
+}
+
 
 .txt-input {
     width: 350px;
@@ -187,10 +257,13 @@ button {
 }
 
 footer {
-    /* position: fixed; */
     width: 100%;
     height: 200px;
     background-color: #ff7f00;
+}
+
+.blur {
+    filter: blur(4px) brightness(20%);
 }
 
 /* helpers */
@@ -298,10 +371,10 @@ footer {
         height: 45px;
         margin: 8px;
     }
-    .fonts-select{
+    .fonts-select {
         width: 170px;
     }
-    .mobile-menu-btn{
+    .mobile-menu-btn {
         visibility: visible;
     }
 }

@@ -4,7 +4,7 @@ let gPosLine = 80;
 let idx = 1;
 let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
 let gMeme = {
-    selectedImgId: 1,
+    selectedImgId: 0,
     selectedTxtIdx: 0,
     txts: []
 }
@@ -58,7 +58,7 @@ function getLinePos() {
     let txtIdx = gMeme.selectedTxtIdx;
     if (gMeme.txts.length) {
         return gMeme.txts[txtIdx].pos;
-    }
+    } 
 }
 
 function checkIfTxtIsEmpty() {
@@ -159,4 +159,11 @@ function setImages() {
 
 function getImagesToRender() {
     return gImgs
+}
+
+function resetMemeData() {
+    gMeme.txts.splice(0, gMeme.txts.length);
+    gMeme.selectedImgId = 0;
+    gMeme.selectedTxtIdx = 0
+    gPosLine = 80;
 }

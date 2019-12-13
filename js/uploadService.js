@@ -7,10 +7,15 @@ function uploadImg(elForm, ev) {
     // A function to be called if request succeeds
     function onSuccess(uploadedImgUrl) {
         uploadedImgUrl = encodeURIComponent(uploadedImgUrl)
-        document.querySelector('.share-container').innerHTML = `
-        <a class="btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
-           Share on facebook 
-        </a>`
+        document.querySelector('.share-modal').style.visibility = 'visible';
+        document.querySelector('.share-modal').innerHTML = `
+        <span class="close-modal" onclick="onCloseModal()">X</span>
+        <a class="btn facebook-btn" href="https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}" title="Share on Facebook" target="_blank" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u=${uploadedImgUrl}&t=${uploadedImgUrl}'); return false;">
+           Facebook 
+        </a>
+        <a class="download-btn" href="#" onclick="onDownloadMeme(this)" download="">Download</a>
+        <a class="save-btn" href="#" onclick="onSaveMeme()">Save</a>
+        `
     }
 
     doUploadImg(elForm, onSuccess);
