@@ -13,14 +13,21 @@
     <div class="share-modal flex space-around align-items diraction-column" hidden></div>
 
     <nav class="main-nav flex space-between align-items container">
-        <img class="logo" src="./imgs/logo.png" alt="" onclick="onGalleryShow()">
+        <img class="logo" src="./imgs/logo.png" alt="" onclick="onShowGallery()">
         <button class="mobile-menu-btn" onclick="toggleMenu()" hidden>☰</button>
         <ul class="main-menu flex clean-list">
-            <li class="main-menu-btn align-center" onclick="onGalleryShow()">Gallery</li>
-            <li class="main-menu-btn align-center" onclick="onMemesShow()">Memes</li>
+            <li class="main-menu-btn align-center" onclick="onShowGallery()">Gallery</li>
+            <li class="main-menu-btn align-center" onclick="onShowSavedMemes()">Memes</li>
         </ul>
     </nav>
-    <div class="main-container flex justify-center space-between">
+    <div class="main-container flex justify-center space-between diraction-column">
+        <div class="search-bar flex space-between align-items container">
+            <div class="flex">
+                <input type="text" id="search-input" placeholder="Enter search keyword" class="search-input">
+                <label for="search-input" class="search-label" onclick="onSearch()"></label>
+            </div>
+            <ul class="searched clean-list flex base-line container"></ul>
+        </div>
         <div class="gallery-container grid container space-between"></div>
 
 
@@ -74,6 +81,7 @@
         <small class="footer-txt">all rights reserved 2019</small>
     </footer>
 
+    <script src="js/memeStorage.js"></script>
     <script src="js/uploadService.js"></script>
     <script src="js/memeController.js"></script>
     <script src="js/memeService.js"></script>

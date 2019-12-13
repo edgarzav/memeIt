@@ -1,7 +1,9 @@
 'use strict'
-let gKeywords = { 'happy': 12, 'funny puk': 1 }
+let gKeyWords = { 'happy': 16, 'funny puk': 1,'books': 20,'lorem': 28,'ipsum': 12,'comics': 5 }
 let gPosLine = 80;
 let idx = 1;
+let gSearchedKeyWord = '';
+const KEY = 'meme';
 let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
 let gMeme = {
     selectedImgId: 0,
@@ -42,6 +44,28 @@ function setNewLine() {
     gMeme.txts.push(createNewLine())
 }
 
+function saveMemeToLocal(ctx) {
+    let memsFromStorage = getMemsFromStorage();
+    let imgs = [];
+    let imgData = "data:image/png;base64," + getBase64Image(ctx);
+
+    if (memsFromStorage) imgs = memsFromStorage;
+
+    imgs.push(imgData)
+    saveToStorage(KEY, imgs)
+}
+
+function getBase64Image(canvas) {
+    var dataURL = canvas.toDataURL("image/png");
+    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+}
+
+
+
+function getMemsFromStorage() {
+    return loadFromStorage(KEY)
+}
+
 function setLineStroke() {
     if (gMeme.txts[gMeme.selectedTxtIdx].stroke) {
         gMeme.txts[gMeme.selectedTxtIdx].stroke = false;
@@ -58,7 +82,7 @@ function getLinePos() {
     let txtIdx = gMeme.selectedTxtIdx;
     if (gMeme.txts.length) {
         return gMeme.txts[txtIdx].pos;
-    } 
+    }
 }
 
 function checkIfTxtIsEmpty() {
@@ -142,23 +166,47 @@ function getImgIndexById(id) {
     })
 }
 
-function setImage(url) {
+function setImage(url, keywords) {
     return {
         id: idx++,
-        url
+        url,
+        keywords
     }
 }
 
 function setImages() {
     let zerosStr = '00';
-    for (let i = 1; i < 18; i++) {
+    gImgs.push(setImage(`./meme-imgs/${zerosStr}${1}.jpg`, ['books']));
+    gImgs.push(setImage(`./meme-imgs/${zerosStr}${5}.jpg`, ['books']));
+    gImgs.push(setImage(`./meme-imgs/${zerosStr}${7}.jpg`, ['books']));
+    for (let i = 2; i < 18; i++) {
         if (i % 10 === 0) zerosStr -= '0'
-        gImgs.push(setImage(`./meme-imgs/${zerosStr}${i}.jpg`));
+        gImgs.push(setImage(`./meme-imgs/${zerosStr}${i}.jpg`, ['happy']));
     }
 }
 
+function setSearchedKeyword(searchedKeyWord) {
+    gSearchedKeyWord = searchedKeyWord;
+    updateKeyWords(searchedKeyWord)
+}
+
+function updateKeyWords(searchedKeyWord) {
+    if (searchedKeyWord) {
+        if (!gKeyWords[searchedKeyWord]) gKeyWords[searchedKeyWord] = 0;
+        gKeyWords[searchedKeyWord]++
+    }
+    // console.log(gKeywords);
+}
+
+function getKeyWordsToRender() {
+    return gKeyWords
+}
+
 function getImagesToRender() {
-    return gImgs
+    if (!gSearchedKeyWord) return gImgs
+    return gImgs.filter(img => {
+        return img.keywords[0] === gSearchedKeyWord;
+    })
 }
 
 function resetMemeData() {
