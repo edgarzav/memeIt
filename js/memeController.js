@@ -241,7 +241,6 @@ function drawText() {
             gCtx.strokeText(text, x, y);
     })
     drawStickers()
-
 }
 
 function onDownloadMeme(elLink) {

@@ -365,72 +365,6 @@ footer {
     filter: blur(4px) brightness(20%);
 }
 
-/* helpers */
-
-.align-center {
-    text-align: center;
-}
-
-/* ul helpers */
-
-.clean-list {
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-}
-
-/* flex-helpers */
-
-.flex {
-    display: flex;
-}
-
-.space-between {
-    justify-content: space-between;
-}
-
-.justify-center {
-    justify-content: center;
-}
-
-.diraction-column {
-    flex-direction: column;
-}
-
-.space-around {
-    justify-content: space-around;
-}
-
-.align-items {
-    align-items: center;
-}
-
-.content-center {
-    align-content: center;
-}
-
-.align-self {
-    align-self: center;
-}
-
-.space-even {
-    justify-content: space-evenly;
-}
-
-.wrap {
-    flex-wrap: wrap;
-}
-
-.base-line {
-    align-items: first baseline;
-}
-
-/* grid helpers */
-
-.grid {
-    display: grid;
-}
-
 @media (max-width: 480px) {
     html {
         font-size: 16px;
@@ -482,6 +416,7 @@ footer {
         width: 45px;
         height: 45px;
         margin: 8px;
+        background-color: #fff;
     }
     .fonts-select {
         width: 170px;
