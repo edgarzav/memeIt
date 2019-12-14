@@ -323,11 +323,3 @@ function updateGallery(img) {
     setUploadedImg(img)
     renderGallery()
 }
-
-window.addEventListener('resize',
-    function () {
-        let elContainer = document.querySelector('.container');
-        gCanvas.width = elContainer.offsetWidth - 20
-        gCanvas.height = elContainer.offsetHeight + 269
-        drawImg()
-    })
