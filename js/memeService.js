@@ -48,15 +48,11 @@ function changeStickersPage(diff) {
 }
 
 function getKeyWordsToRender() {
-    // Object.entries(gKeyWords);
-    console.log(Object.entries(gKeyWords));
     let keys = Object.entries(gKeyWords);
     return keys.slice(0, gKeyWordsOnPage);
 }
-function setkeysOnPageAll(){
+function setkeysOnPageAll() {
     gKeyWordsOnPage = Object.entries(gKeyWords).length - 1;
-    console.log(gKeyWordsOnPage);
-    
 }
 
 
@@ -109,12 +105,9 @@ function getBase64Image(canvas) {
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
-
-
 function setCurrSticker(url) {
     gCurrSticker = url;
 }
-
 
 function getMemsFromStorage() {
     return loadFromStorage(KEY)
@@ -124,7 +117,6 @@ function setLineStroke() {
     if (gMeme.txts[gMeme.selectedTxtIdx].stroke) {
         gMeme.txts[gMeme.selectedTxtIdx].stroke = false;
     } else gMeme.txts[gMeme.selectedTxtIdx].stroke = true
-
 }
 
 function setPosToLine(posX, posY) {
@@ -174,7 +166,6 @@ function addTxtToMeme(txt) {
 function updateFontSize(value) {
     gMeme.txts[gMeme.selectedTxtIdx].size += value;
 }
-
 
 function toggleTxtLines() {
     if (gMeme.selectedTxtIdx === gMeme.txts.length - 1) {

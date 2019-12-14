@@ -80,7 +80,7 @@ function loadCanvas(id) {
     document.querySelector('.meme-edit').style.display = 'flex';
 }
 
-function onShowAllKeyWords(){
+function onShowAllKeyWords() {
     setkeysOnPageAll();
     renderSearched();
 }

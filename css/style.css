@@ -3,10 +3,6 @@
     src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
 }
 
-/* [hidden] {
-    display: none;
-} */
-
 html {
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -465,7 +461,6 @@ footer {
     .container {
         padding: 10px;
         margin: 0;
-        /* width: 400px; */
     }
     .properties-second {
         width: 335px;
