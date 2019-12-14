@@ -469,9 +469,9 @@ footer {
     .meme-edit {
         flex-direction: column;
     }
-    canvas {
+    /* canvas {
         width: 355px;
-    }
+    } */
     button {
         border: none;
         border-radius: 10px;

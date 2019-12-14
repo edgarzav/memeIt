@@ -324,13 +324,11 @@ function updateGallery(img) {
     renderGallery()
 }
 
-// function resizeCanvas() {
-//     var elContainer =
-//         document.querySelector('.canvas-container');
-//     // Note: changing the canvas dimension this way clears the canvas
-//     gCanvas.width = elContainer.offsetWidth - 100
-//     gCanvas.height = elContainer.offsetHeight - 100
-
-//     // TODO: redraw..
-// }
+window.addEventListener('resize',
+    function () {
+        let elContainer = document.querySelector('.container');
+        gCanvas.width = elContainer.offsetWidth - 20
+        gCanvas.height = elContainer.offsetHeight + 269
+        drawImg()
+    })
 
