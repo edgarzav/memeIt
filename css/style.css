@@ -428,12 +428,13 @@ footer {
 }
 
 @media (max-width: 480px) {
+    html {
+        font-size: 16px;
+    }
     .gallery-container {
         grid-template-columns: 355px;
         column-gap: 20px;
         row-gap: 20px;
-        padding-top: 30px;
-        padding-bottom: 30px;
     }
     .properties-container {
         width: 355px;
@@ -468,7 +469,7 @@ footer {
     .meme-edit {
         flex-direction: column;
     }
-    canvas{
+    canvas {
         width: 355px;
     }
     button {

@@ -12,7 +12,7 @@ function renderGallery() {
     let imgs = getImagesToRender();
 
     let divs = imgs.map(img => {
-        return `<div class="image-container container" onclick="loadCanvas(${img.id})">
+        return `<div class="image-container" onclick="loadCanvas(${img.id})">
                 <img class="image-item" src="${img.url}" alt="">
                 </div>`
     });
@@ -323,4 +323,14 @@ function updateGallery(img) {
     setUploadedImg(img)
     renderGallery()
 }
+
+// function resizeCanvas() {
+//     var elContainer =
+//         document.querySelector('.canvas-container');
+//     // Note: changing the canvas dimension this way clears the canvas
+//     gCanvas.width = elContainer.offsetWidth - 100
+//     gCanvas.height = elContainer.offsetHeight - 100
+
+//     // TODO: redraw..
+// }
 
