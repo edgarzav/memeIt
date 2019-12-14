@@ -14,27 +14,32 @@
 
     <nav class="main-nav flex space-between align-items container">
         <img class="logo" src="./imgs/logo.png" alt="" onclick="onShowGallery()">
-        <button class="mobile-menu-btn" onclick="toggleMenu()" hidden>☰</button>
+        <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
         <ul class="main-menu flex clean-list">
+            <li class="main-menu-btn upload-input align-center" ><input class="file-input btn" id="file-input" type="file" name="image" onchange="onImgInput(event)" />
+                <label for="file-input">Upload</label></li>
             <li class="main-menu-btn align-center" onclick="onShowGallery()">Gallery</li>
             <li class="main-menu-btn align-center" onclick="onShowSavedMemes()">Memes</li>
         </ul>
     </nav>
     <div class="main-container flex justify-center space-between diraction-column">
-        <div class="search-bar flex space-between align-items container">
-            <div class="flex">
-                <input type="text" id="search-input" placeholder="Enter search keyword" class="search-input">
-                <label for="search-input" class="search-label" onclick="onSearch()"></label>
+        <div class="search-container">
+            <div class="search-bar flex space-between align-items container">
+                <div class="flex">
+                    <input type="text" id="search-input" placeholder="Enter search keyword" class="search-input">
+                    <label for="search-input" class="search-label" onclick="onSearch()"></label>
+                </div>
+                <ul class="searched clean-list flex base-line container wrap"></ul>
             </div>
-            <ul class="searched clean-list flex base-line container"></ul>
         </div>
-        <div class="gallery-container grid container space-between"></div>
 
+        <div class="gallery-container grid container space-between"></div>
 
         <div class="meme-edit space-even container">
             <div class="canvas-container">
-                <canvas id="my-canvas" width="500" height="500" onmousedown="onMouseDown(event)" onmouseup="onMouseUp()"
-                    onmousemove="onDraw(event)">
+                <canvas ondrop="dropSticker(event)" ondragover="allowStickerDrop(event)" id="my-canvas" width="500"
+                    height="500" onmousedown="onMouseDown(event)" onmouseup="onMouseUp()"
+                    onmousemove="onMoveLine(event)">
                     Canvas
                 </canvas>
             </div>
@@ -63,6 +68,12 @@
                     <button class="txt-stroke-btn" onclick="onTxtStroke()"></button>
                     <input type="color" id="color-input" class="txt-color-input" onchange="onColorChange(event)">
                     <label for="color-input" class="input-background"></label>
+                </div>
+
+                <div class="stickers-container flex space-even align-items">
+                    <a href="#" class="sticker-prev" data-id="-1" onclick="onPagination(this)"></a>
+                    <div class="sticker-box flex space-even align-items"></div>
+                    `<a href="#" class="sticker-nxt" data-id="1" onclick="onPagination(this)"></a>`
                 </div>
                 <div class="share">
                     <form class="share-form" action="" method="POST" enctype="multipart/form-data"

@@ -1,14 +1,23 @@
 'use strict'
-let gKeyWords = { 'happy': 16, 'funny puk': 1,'books': 20,'lorem': 28,'ipsum': 12,'comics': 5 }
+let gKeyWords = { 'happy': 16, 'funny puk': 1, 'books': 20, 'lorem': 28, 'ipsum': 12, 'comics': 5 }
+let gStickers = [{ title: 'gift', url: '../imgs/stickers/gift-sticker.svg' },
+{ title: 'hat', url: '../imgs/stickers/hat-sticker.svg' },
+{ title: 'glasses', url: '../imgs/stickers/glasses-sticker.svg' },
+{ title: 'funny', url: '../imgs/stickers/funny-sticker.svg' }]
+
+let gCurrStickerPage = 0, gStickersOnPage = 3;
+let gKeyWordsOnPage = 4;
 let gPosLine = 80;
 let idx = 1;
+let gCurrSticker = '';
 let gSearchedKeyWord = '';
 const KEY = 'meme';
-let gImgs = [{ id: 0, url: './meme-imgs/005.jpg', keywords: ['happy'] }];
+let gImgs = [];
 let gMeme = {
     selectedImgId: 0,
     selectedTxtIdx: 0,
-    txts: []
+    txts: [],
+    stickers: []
 }
 
 function selectLineByPos(offsetX, offsetY) {
@@ -28,6 +37,28 @@ function downloadImg(elLink, canvas) {
 function getSelectedLineTxt() {
     return gMeme.txts[gMeme.selectedTxtIdx].line;
 }
+function getStickersToRender() {
+    let startAt = gCurrStickerPage * gStickersOnPage;
+    return gStickers.slice(startAt, startAt + gStickersOnPage);
+}
+
+function changeStickersPage(diff) {
+    gCurrStickerPage = (Math.ceil(gStickers.length / gStickersOnPage)
+        + gCurrStickerPage + (+diff)) % Math.ceil(gStickers.length / gStickersOnPage)
+}
+
+function getKeyWordsToRender() {
+    // Object.entries(gKeyWords);
+    console.log(Object.entries(gKeyWords));
+    let keys = Object.entries(gKeyWords);
+    return keys.slice(0, gKeyWordsOnPage);
+}
+function setkeysOnPageAll(){
+    gKeyWordsOnPage = Object.entries(gKeyWords).length - 1;
+    console.log(gKeyWordsOnPage);
+    
+}
+
 
 function getTxtLines() {
     return gMeme.txts;
@@ -42,6 +73,24 @@ function setNewLine() {
     if (gMeme.txts.length)
         gMeme.selectedTxtIdx++;
     gMeme.txts.push(createNewLine())
+}
+
+function setNewSticker(posX, posY) {
+    gMeme.stickers.push(createNewSticker(gCurrSticker, posX, posY))
+}
+
+function createNewSticker(url, posX, posY) {
+    return {
+        url,
+        pos: {
+            posX,
+            posY
+        }
+    }
+}
+
+function getMemeStickers() {
+    return gMeme.stickers;
 }
 
 function saveMemeToLocal(ctx) {
@@ -60,6 +109,11 @@ function getBase64Image(canvas) {
     return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
 }
 
+
+
+function setCurrSticker(url) {
+    gCurrSticker = url;
+}
 
 
 function getMemsFromStorage() {
@@ -174,6 +228,10 @@ function setImage(url, keywords) {
     }
 }
 
+function setUploadedImg(img) {
+    gImgs.unshift(setImage(img.src, ['books']));
+}
+
 function setImages() {
     let zerosStr = '00';
     gImgs.push(setImage(`./meme-imgs/${zerosStr}${1}.jpg`, ['books']));
@@ -195,11 +253,6 @@ function updateKeyWords(searchedKeyWord) {
         if (!gKeyWords[searchedKeyWord]) gKeyWords[searchedKeyWord] = 0;
         gKeyWords[searchedKeyWord]++
     }
-    // console.log(gKeywords);
-}
-
-function getKeyWordsToRender() {
-    return gKeyWords
 }
 
 function getImagesToRender() {
@@ -211,6 +264,7 @@ function getImagesToRender() {
 
 function resetMemeData() {
     gMeme.txts.splice(0, gMeme.txts.length);
+    gMeme.stickers.splice(0, gMeme.stickers.length);
     gMeme.selectedImgId = 0;
     gMeme.selectedTxtIdx = 0
     gPosLine = 80;

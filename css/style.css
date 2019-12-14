@@ -11,8 +11,8 @@ html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-*{
-   outline:0;
+* {
+    outline: 0;
 }
 
 a {
@@ -37,17 +37,13 @@ button {
 }
 
 .container {
-    /* margin: 0 auto; */
+    margin: 0 auto;
     padding-left: 50px;
     padding-right: 50px;
 }
 
-/* .properties-container{
-
-} */
-
 .gallery-container {
-    grid-template-columns: repeat(4, 300px);
+    grid-template-columns: repeat(4, 320px);
     column-gap: 20px;
     row-gap: 20px;
     padding-top: 30px;
@@ -58,7 +54,7 @@ button {
     padding-bottom: 27px;
     padding-top: 27px;
     display: none;
-    width: 1200px;
+    width: 1000px;
 }
 
 .properties-first {
@@ -106,6 +102,72 @@ button {
     cursor: pointer;
 }
 
+.more-btn {
+    text-decoration: underline;
+}
+
+.stickers-container {
+    width: 370px;
+    border-radius: 10px;
+    background-color: #fff;
+    height: 130px;
+}
+
+.sticker-box {
+    width: 300px;
+}
+
+.sticker {
+    width: 80px;
+    height: 80px;
+}
+
+.gift-st {
+    background-image: url(../imgs/stickers/gift-sticker.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
+}
+
+.hat-st {
+    background-image: url(../imgs/stickers/hat-sticker.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
+}
+
+.glasses-st {
+    background-image: url(../imgs/stickers/glasses-sticker.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
+}
+
+.funny-st {
+    background-image: url(../imgs/stickers/funny-sticker.svg);
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+    background-position: center;
+}
+
+.sticker-nxt {
+    width: 40px;
+    height: 40px;
+    background-image: url(../imgs/stickers/sticker-nxt-btn.svg);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+}
+
+.sticker-prev {
+    width: 40px;
+    height: 40px;
+    background-image: url(../imgs/stickers/sticker-prev-btn.svg);
+    background-repeat: no-repeat;
+    background-size: 40px 40px;
+    background-position: center;
+}
+
 .search-label {
     background-image: url(./icones/search-icon.svg);
     background-repeat: no-repeat;
@@ -117,8 +179,6 @@ button {
 }
 
 .main-menu-btn {
-    width: 66px;
-    height: 19px;
     color: #fff;
     font-family: monte, sans-serif;
     font-size: 19px;
@@ -240,6 +300,10 @@ button {
     display: none;
 }
 
+.file-input {
+    display: none;
+}
+
 .input-background {
     background-image: url(./icones/paint-bar-icon.svg);
     background-color: #fff;
@@ -266,7 +330,7 @@ button {
     cursor: pointer;
 }
 
-.meme-item{
+.meme-item {
     width: 100%;
 }
 
@@ -276,9 +340,8 @@ button {
 
 .txt-input {
     width: 350px;
-    padding-left: 1rem;
-    margin: 5px;
     font-size: 1rem;
+    padding-left: 15px;
     border-radius: 10px;
     border: none;
     background-color: #fff;
@@ -370,16 +433,20 @@ footer {
 
 @media (max-width: 480px) {
     .gallery-container {
-        grid-template-columns: 300px;
+        grid-template-columns: 390px;
         column-gap: 20px;
         row-gap: 20px;
         padding-top: 30px;
         padding-bottom: 30px;
     }
+    .properties-container {
+        width: 400px;
+    }
     .mobile-menu-btn {
         background-color: #ff7f00;
         color: #fff;
         font-size: 2rem;
+        visibility: visible;
     }
     .menu-open .main-menu {
         transform: translate(0, 0);
@@ -389,20 +456,25 @@ footer {
         position: fixed;
         top: 65px;
         height: 70px;
-        width: 100%;
+        width: 100vw;
         transform: translate(0, -500px);
         transition: transform .6s;
         background-color: #ff7f00;
         margin-bottom: 10px;
     }
     .container {
-        padding: 0;
+        padding: 10px;
+        margin: 0;
+        /* width: 400px; */
     }
     .properties-second {
-        width: 320px;
+        width: 335px;
     }
     .meme-edit {
         flex-direction: column;
+    }
+    canvas{
+        width: 390px;
     }
     button {
         border: none;
@@ -414,7 +486,12 @@ footer {
     .fonts-select {
         width: 170px;
     }
-    .mobile-menu-btn {
-        visibility: visible;
+    .search-bar {
+        height: 120px;
+        padding: 10px;
+        flex-direction: column;
+    }
+    .main-menu-btn {
+        padding: 0;
     }
 }

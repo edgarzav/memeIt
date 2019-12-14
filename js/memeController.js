@@ -22,8 +22,6 @@ function renderGallery() {
 
 function onSearch(keyWord) {
     if (keyWord.innerHTML) {
-        console.log(keyWord.innerHTML);
-        
         setSearchedKeyword(keyWord.innerHTML);
     } else {
         let searchTxt = document.querySelector('.search-input').value
@@ -34,12 +32,13 @@ function onSearch(keyWord) {
 
 function renderSearched() {
     let keyWords = getKeyWordsToRender();
-    let lis = Object.keys(keyWords).map(key => {
+    let lis = keyWords.map(key => {
         let fontSize = 14;
-        if (keyWords[key] > 14 && keyWords[key] < 30) fontSize
-        return `<li class="searched-item" onclick="onSearch(this)"  style="font-size: ${keyWords[key] + 14}px;">${key}</li>`
-    });
-    document.querySelector('.searched').innerHTML = lis.join('');;
+        if (key[1] > 14 && key[1] < 30) fontSize
+        return `<li class="searched-item" onclick="onSearch(this)"  style="font-size: ${key[1] + 14}px;">${key[0]}</li>`
+    }).join('');
+    lis += `<li class="searched-item more-btn" onclick="onShowAllKeyWords()" >more...</li>`
+    document.querySelector('.searched').innerHTML = lis;
 
 }
 
@@ -53,22 +52,49 @@ function renderCreatedMems() {
     document.querySelector('.gallery-container').innerHTML = divs.join('');
 }
 
+function renderStickers() {
+    let stickers = getStickersToRender();
+    let strHtml
+    strHtml = stickers.map(sticker => {
+        return `  <div draggable="true" ondragstart="dragSticker(this)">
+                       <svg class="${sticker.title}-st sticker" src="${sticker.url}"
+                          data-id="${sticker.url}" onclick="onDrawSticker(this)"></svg>
+                  </div>`
+    }).join('')
+
+
+    document.querySelector('.sticker-box').innerHTML = strHtml;
+}
 
 function loadCanvas(id) {
     setCurrImgId(id);
     setNewLine();
     drawImg()
+    renderStickers()
     setTimeout(drawRect, 100)
-    document.querySelector('.txt-input').value = ''
+
+    document.querySelector('.upload-input').style.visibility = 'hidden';
+    document.querySelector('.txt-input').value = '';
     document.querySelector('.gallery-container').style.display = 'none';
     document.querySelector('.search-bar').style.display = 'none';
     document.querySelector('.meme-edit').style.display = 'flex';
 }
 
+function onShowAllKeyWords(){
+    setkeysOnPageAll();
+    renderSearched();
+}
+
+function onPagination(elDiff) {
+    let diff = elDiff.dataset.id;
+    changeStickersPage(diff);
+    renderStickers()
+}
 
 function onShowGallery() {
     renderGallery()
     resetMemeData();
+    document.querySelector('.upload-input').style.visibility = 'visible';
     document.querySelector('.search-bar').style.display = 'flex';
     document.querySelector('.gallery-container').style.display = 'grid';
     document.querySelector('.meme-edit').style.display = 'none';
@@ -77,12 +103,11 @@ function onShowGallery() {
 function onShowSavedMemes() {
     renderCreatedMems()
     resetMemeData();
+    document.querySelector('.upload-input').style.visibility = 'hidden';
     document.querySelector('.search-bar').style.display = 'none';
     document.querySelector('.gallery-container').style.display = 'grid';
     document.querySelector('.meme-edit').style.display = 'none';
 }
-
-
 
 function onSaveMeme() {
     saveMemeToLocal(gCanvas)
@@ -135,10 +160,47 @@ function onDeleteLine() {
     document.querySelector('.txt-input').value = ''
     drawImg()
     deleteSelectedLine();
+}
+
+function onDrawSticker(elEmoji) {
+    createNewSticker(elEmoji.dataset.id)
+}
+
+function drawSticker(sticker, posX, posY) {
+    let img = new Image()
+    img.onload = () => {
+        gCtx.drawImage(img, posX, posY, gCanvas.width / 4, gCanvas.height / 4);
+    };
+    img.src = sticker
 
 }
 
-function onDraw(elPos) {
+function drawStickers() {
+    let stickers = getMemeStickers()
+    if (stickers) {
+        stickers.forEach(sticker => {
+            drawSticker(sticker.url, sticker.pos.posX, sticker.pos.posY)
+        });
+    }
+}
+
+function allowStickerDrop(ev) {
+    ev.preventDefault();
+}
+
+function dragSticker(elSticker) {
+    setCurrSticker(elSticker.childNodes[0].nextSibling.dataset.id)
+}
+
+function dropSticker(ev) {
+    let posX = ev.offsetX - gCanvas.offsetLeft;
+    let posY = ev.offsetY - gCanvas.offsetTop;
+
+    setNewSticker(posX, posY)
+    drawStickers()
+}
+
+function onMoveLine(elPos) {
     if (gOnMouseDown) {
         const offsetX = elPos.offsetX
         const offsetY = elPos.offsetY
@@ -173,10 +235,13 @@ function drawText() {
         gCtx.strokeStyle = 'black'
         gCtx.lineWidth = 2.5
         gCtx.font = `${fontSize}rem ${font}`;
+
         gCtx.fillText(text, x, y);
         if (txt.stroke)
             gCtx.strokeText(text, x, y);
     })
+    drawStickers()
+
 }
 
 function onDownloadMeme(elLink) {
@@ -240,10 +305,10 @@ function onShare(elForm, ev) {
 }
 
 function onImgInput(ev) {
-    loadImageFromInput(ev, renderCanvas)
+    loadImageFromInput(ev, updateGallery)
 }
+
 function loadImageFromInput(ev, onImageReady) {
-    document.querySelector('.share-container').innerHTML = ''
     var reader = new FileReader();
 
     reader.onload = function (event) {
@@ -253,3 +318,9 @@ function loadImageFromInput(ev, onImageReady) {
     }
     reader.readAsDataURL(ev.target.files[0]);
 }
+
+function updateGallery(img) {
+    setUploadedImg(img)
+    renderGallery()
+}
+
