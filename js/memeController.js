@@ -331,4 +331,3 @@ window.addEventListener('resize',
         gCanvas.height = elContainer.offsetHeight + 269
         drawImg()
     })
-
