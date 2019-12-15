@@ -241,7 +241,11 @@ function setSearchedKeyword(searchedKeyWord) {
 
 function updateKeyWords(searchedKeyWord) {
     if (searchedKeyWord) {
-        if (!gKeyWords[searchedKeyWord]) gKeyWords[searchedKeyWord] = 0;
+        if (!gKeyWords[searchedKeyWord]){
+console.log(searchedKeyWord);
+gMeme[searchedKeyWord] = 0;
+            gKeyWords[searchedKeyWord] = 0;
+        } 
         gKeyWords[searchedKeyWord]++
     }
 }

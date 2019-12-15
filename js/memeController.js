@@ -23,11 +23,14 @@ function renderGallery() {
 function onSearch(keyWord) {
     if (keyWord.innerHTML) {
         setSearchedKeyword(keyWord.innerHTML);
+        renderSearched()
     } else {
         let searchTxt = document.querySelector('.search-input').value
         setSearchedKeyword(searchTxt);
+        renderSearched()
     }
     renderGallery()
+    renderSearched()
 }
 
 function renderSearched() {

@@ -28,8 +28,8 @@
         <div class="search-container">
             <div class="search-bar flex space-between align-items container">
                 <div class="flex">
-                    <input type="text" id="search-input" placeholder="Enter search keyword" class="search-input">
-                    <label for="search-input" class="search-label" onclick="onSearch(this)"></label>
+                    <input type="text" id="search-input" onkeyup="onSearch(this)" placeholder="Enter search keyword" class="search-input">
+                    <label for="search-input" class="search-label" ></label>
                 </div>
                 <ul class="searched clean-list flex base-line container wrap"></ul>
             </div>
