@@ -126,7 +126,7 @@ button {
 }
 
 .hat-st {
-    background-image: url(./imgs/stickers/hat-sticker.svg);
+    background-image: url(../imgs/stickers/hat-sticker.svg);
     background-repeat: no-repeat;
     background-size: 80px 80px;
     background-position: center;
