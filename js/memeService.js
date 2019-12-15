@@ -1,9 +1,9 @@
 'use strict'
 let gKeyWords = { 'happy': 16, 'funny puk': 1, 'books': 20, 'lorem': 28, 'ipsum': 12, 'comics': 5 }
-let gStickers = [{ title: 'gift', url: '../imgs/stickers/gift-sticker.svg' },
+let gStickers = [{ title: 'gift', url: './imgs/stickers/gift-sticker.svg' },
 { title: 'hat', url: './imgs/stickers/hat-sticker.svg' },
-{ title: 'glasses', url: '../imgs/stickers/glasses-sticker.svg' },
-{ title: 'funny', url: '../imgs/stickers/funny-sticker.svg' }]
+{ title: 'glasses', url: './imgs/stickers/glasses-sticker.svg' },
+{ title: 'funny', url: './imgs/stickers/funny-sticker.svg' }]
 
 let gCurrStickerPage = 0, gStickersOnPage = 3;
 let gKeyWordsOnPage = 4;
