@@ -49,6 +49,7 @@ button {
 .meme-edit {
     padding-bottom: 27px;
     padding-top: 27px;
+    height: calc(100vh - 66px - 200px);
     display: none;
     width: 1000px;
 }
